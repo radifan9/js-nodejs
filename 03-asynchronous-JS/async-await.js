@@ -48,34 +48,3 @@ const getDogPic = async () => {
 };
 
 getDogPic();
-
-/*
-// Use promises
-readFilePro(`${__dirname}/doggg.txt`)
-  .then((data) => {
-    console.log(`Breed: ${data}`);
-
-    return (
-      superagent
-        // Making a GET request for a random dog image according to breed name
-        .get(`https://dog.ceo/api/breed/${data}/images/random`)
-    );
-  })
-
-  // Handle fulfilled promise
-  .then((res) => {
-    console.log(res.body.message);
-    return writeFilePro("dog-img.txt", res.body.message);
-  })
-
-  // When dog image saved
-  .then(() => {
-    console.log("Random dog image saved to file!");
-  })
-
-  // Handle rejected promise
-  .catch((err) => {
-    console.log("This is rejected promise");
-    console.log(err);
-  });
-*/
