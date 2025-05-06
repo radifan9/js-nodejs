@@ -3,20 +3,20 @@
 const fs = require("node:fs");
 const superagent = require("superagent");
 
-// Building promise
+// Build read promise
 const readFilePro = (file) => {
   return new Promise((resolve, reject) => {
-    // Do asynchronous work
     fs.readFile(file, (err, data) => {
-      // REJECT FUNCTION
+      // Reject
       if (err) reject("I could not find that file 😭");
 
-      // RESOLVE FUNCTION
+      // Resolve
       resolve(data);
     });
   });
 };
 
+// Build write promise
 const writeFilePro = (fileName, data) => {
   return new Promise((resolve, reject) => {
     fs.writeFile(fileName, data, (err) => {
@@ -26,56 +26,31 @@ const writeFilePro = (fileName, data) => {
   });
 };
 
+// Use promise
 const getDogPic = async () => {
   try {
-    // Get the breed name
+    // Get the dog breed name
     const data = await readFilePro(`${__dirname}/dog.txt`);
     console.log(`Breed: ${data}`);
 
-    // Get the dog image from API call
+    // Get dog image URL from API call
     const res = await superagent.get(
       `https://dog.ceo/api/breed/${data}/images/random`
     );
     console.log(res.body.message);
 
-    // Write the dog img URL to a text
+    // Write the dog image URL to a text
     await writeFilePro("dog-img.txt", res.body.message);
     console.log("Random dog image saved to file!");
   } catch (err) {
-    // If there's an error
+    // Error handling
     console.log(err);
   }
+  return `2: READY 🐶`;
 };
 
-getDogPic();
-
-/*
-// Use promises
-readFilePro(`${__dirname}/doggg.txt`)
-  .then((data) => {
-    console.log(`Breed: ${data}`);
-
-    return (
-      superagent
-        // Making a GET request for a random dog image according to breed name
-        .get(`https://dog.ceo/api/breed/${data}/images/random`)
-    );
-  })
-
-  // Handle fulfilled promise
-  .then((res) => {
-    console.log(res.body.message);
-    return writeFilePro("dog-img.txt", res.body.message);
-  })
-
-  // When dog image saved
-  .then(() => {
-    console.log("Random dog image saved to file!");
-  })
-
-  // Handle rejected promise
-  .catch((err) => {
-    console.log("This is rejected promise");
-    console.log(err);
-  });
-*/
+console.log(`1: Will get dog pics!`);
+getDogPic().then((x) => {
+  console.log(x);
+  console.log(`3: Done getting dog pics!`);
+});
