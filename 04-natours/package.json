@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Learning node, express, and mongoDB",
   "license": "ISC",
-  "author": "Radif",
+  "author": "Radif Aghnadiin",
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
